@@ -1,20 +1,23 @@
 const express = require('express');
 const router = express.Router();
-const response = require('../../responses');
-const controller = require('./controller');
+const {success, error} = require('../../responses');
+const { addMessage , getMessage } = require('./controller');
 
 
 router.get('/', (req, res) => {
-    response.success(req, res, 'Estos son tus mensajes')
+    getMessage()
+        .then( (messageList) => {
+            success(req, res, messageList, 200, 'god')
+        })
+        .catch( err => error(req ,res , err, 400, 'no hay mensajes') )
 });
 
 router.post('/', (req, res) => {
     const { user, message } = req.body;
 
-    controller.addMessage(user, message)
-        .then( (fullMessage) =>  response.success(req, res, fullMessage, 201 , 'god') )
-        .catch( error => response.error(req, res, error, 400, 'errores inesperados' ) )
-
+    addMessage(user, message)
+        .then( (fullMessage) =>  success(req, res, fullMessage, 201 , 'god') )
+        .catch( err => error(req, res, err, 400, 'errores inesperados' ) )
 });
 
 module.exports = router;
