@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
         .then( (messageList) => {
             success(req, res, messageList, 200, 'god')
         })
-        .catch( err => error(req ,res , err, 400, 'no hay mensajes') )
+        .catch( err => error(req ,res , 'Unexpected Error', 400, err) )
 });
 
 router.post('/', (req, res) => {
@@ -17,7 +17,7 @@ router.post('/', (req, res) => {
 
     addMessage(user, message)
         .then( (fullMessage) =>  success(req, res, fullMessage, 201 , 'god') )
-        .catch( err => error(req, res, err, 400, 'errores inesperados' ) )
+        .catch( err => error(req ,res , 'Unexpected Error', 400, err) )
 });
 
 module.exports = router;

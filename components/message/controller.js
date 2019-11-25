@@ -1,6 +1,6 @@
 const { add , list } = require('./store');
 
-const addMessage = (user, message) =>{
+function addMessage (user, message){
     return new Promise( (resolve, reject) => {
         if(!user || !message){
             console.error('[messageController] no hay usuario o mensaje');
@@ -17,7 +17,7 @@ const addMessage = (user, message) =>{
     })
 };
 
-const getMessage = () => {
+function getMessage() {
     return new Promise((resolve, reject) => {
         resolve(list)
     });
